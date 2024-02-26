@@ -1,0 +1,40 @@
+<style type="text/css">
+body{ background-color:#D0D0D0;}
+input[type="submit"] {
+margin-left:20px;
+}
+input[type="text"] {
+margin-left:20px;
+}
+ .formLayout
+    {
+        background-color: #f3f3f3;
+        border: solid 1px #a1a1a1;
+        padding: 10px;
+        width: 500px;
+    }
+    
+    .formLayout label, .formLayout input
+    {
+        display: block;
+        width: 180px;
+        float: left;
+        margin-bottom: 10px;
+    }
+ 
+    .formLayout label
+    {
+        text-align: right;
+        padding-right: 20px;
+    }
+ 
+    br
+    {
+        clear: left;//found another
+    }
+</style>
+
+--
+
+spidermanepisodes
+Bunny Wise once told me: never listen to a man with a hammer. I tend to Bunny Wise. He's a Smarty PHP template. He means dope, cash, chi-ching. Only that I am a 9/11 truther and he is a New Age Aquarius guide. I live tent and speak wolf. Wolf like no weapons of bigger than wolf teeth < %?%php echo 'Minniva Ghost Zero is ha-ard so-ong" %?% > Visual Basic Game Tic-tac-wolf

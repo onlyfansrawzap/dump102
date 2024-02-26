@@ -1,0 +1,202 @@
+1 page
+
+function starfld()
+
+for i=1, #starx do
+
+ pset(starx[i], stary[i],7)
+ 
+ //flr(rnd(128))
+ //,flr(rnd(128)),7)
+end--3otimes per second drawn
+
+
+end
+
+function animoitahdet()
+--loop thru the stars
+ --smthing can get overwritten
+ --print(sy) can
+ for i=1, #stary do
+  local sy=stary[i]
+ --starx and stary should have
+ --the same values
+  sy=sy+1
+ --direct line starx[i]=stary[i]+1
+   if sy>128 then
+    sy=sy-128
+   end
+   stary[i]=sy
+ end
+
+ 
+
+end
+
+0 page
+
+-- simple shmup
+-- by sarah
+-- lazy dev animoitahdet, youtubes channel 
+-- lazy devs
+-- sarah
+-- patternmatch, here https://itch.io/queue/c/463550/pico-8-shmups?game_id=233629
+-- these two sources tell where
+-- the implementation was originated
+-- from
+-- put together: mikko aaltonen,
+-- 2.11.2022
+--
+
+p={x=64,y=96}
+bolts={}
+enemies={}
+over=false
+score=0
+ 
+  starx={}
+ stary={}
+
+
+function _init()
+ spawn()
+ --tables combining multiple
+ --values in one thing
+
+ 
+ for i=1, 100 do
+  add(starx,flr(rnd(128)))
+  add(stary,flr(rnd(128)))
+
+ end
+ --two arrays, two lists
+ 
+
+end
+
+function spawn()
+ enemies={
+ 	{x=16,y=0,d=0},
+ 	{x=32,y=0,d=0},
+ 	{x=48,y=0,d=0},
+ 	{x=64,y=0,d=0},
+ 	{x=80,y=0,d=0},
+ 	{x=96,y=0,d=0},
+ 	{x=112,y=0,d=0},
+ 	{x=128,y=0,d=0}
+ }
+end
+
+function update_bolts()
+ for b in all(bolts) do
+  b.y-=3
+  if b.y<0 then del(bolts,b) end
+  for e in all(enemies) do
+	  if collide(b,e) then
+			 destroy(b,e)
+			 score+=1
+   end  
+  end
+ end
+end
+
+function collide(b,e)
+ return abs(b.x-e.x) < 4
+  and abs(b.y-e.y) < 4
+end
+
+function destroy(b,e)
+ del(enemies,e)
+ del(bolts,b)
+ sfx(1)
+ spr(6,e.x-4,e.y-4)
+end
+
+function update_enemies()
+ for e in all(enemies) do
+  if e.d==0 then
+   e.y+=1//e.x+=1
+    else
+   //e.x-=1
+    end
+-- 	e.y+=0.25
+ 	if e.x<0 then e.d=0 end
+ 	if e.x>128 then e.d=1 end
+ 	if e.y>128 then del(enemies,e) end
+	if collide(e,p) then
+ 	 del(enemies,e)
+-- 	 sfx(1)
+ 	 spr(6,p.x-4,p.y-4)
+ 	 over=true end
+ end
+ if #enemies==0 then spawn() end
+end
+
+function fire()
+ add(bolts,{x=p.x,y=p.y})
+ sfx(0)
+end
+
+function update_player()
+ if btn(➡️) then p.x+=2 end
+ if btn(⬅️) then p.x-=2 end
+ if btn(⬇️) then p.y+=2 end
+ if btn(⬆️) then p.y-=2 end
+ if p.x<0 then p.x=0 end
+ if p.y<0 then p.y=0 end
+ if p.x>128 then p.x=128 end
+ if p.y>128 then p.y=128 end
+ if btnp(❎) then fire() end
+end
+
+function _update()
+cls()
+
+if not over then update_player() end
+update_bolts()
+update_enemies()
+
+animoitahdet()
+end
+
+function draw_bolts()
+ for b in all(bolts) do
+ 	spr(1,b.x-4,b.y-8)
+ end
+end
+
+function draw_enemies()
+ for e in all(enemies) do
+		spr(5,e.x-4,e.y-4)
+ end
+end
+
+function draw_player()
+ if over then
+  print("spelit lopusa - kahvile ny",10,51,6)
+  return end
+ spr(0,p.x-4,p.y-4)
+end
+
+function _draw()
+
+ map(0,0,0,0)
+ starfld()
+ draw_player()
+ draw_bolts()
+ draw_enemies()
+ print("salon kb-talo - ",0,100,6)
+ //print("",0,90,6)
+ print("kahvit",0,110,6)
+ print(score,0,120,6)
+-- cursor(0,0)
+ //stars={1,4,8,9,3,7,9}
+ --curly bracket opening
+ --and curly bracket closing
+//print(stars[2])
+
+end
+
+made with pico-8 025g (or edited to text)
+
+
